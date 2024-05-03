@@ -3,7 +3,7 @@
 
 ## 用法
 
-初始化，包括设置程序名、选项前缀、添加选项。
+初始化，包括设置程序名、输出流、错误输出流、选项前缀、添加选项。
 ```cpp
 CmdLineParser parser;
 
@@ -18,7 +18,21 @@ parser.add_option({ "help", "h", "display this infomation", "", false });
 parser.add_option("name", "display your name", true);
 parser.add_option("age", "display your age", true);
 parser.add_option({ "address", "A", "display your address", "", true });
-
+```
+其中，`add_option`方法有两个重载。
+```cpp
+inline void CmdLineParser::add_option(const std::string &name, const std::string &description, bool required = false);
+inline void CmdLineParser::add_option(const CmdLineParser::Option &option)
+```
+参数类型`CmdLineParser::Option`是一个结构体类型。
+```cpp
+struct CmdLineParser::Option {
+    std::string name;           // 选项名
+    std::string short_name;     // 短选项名
+    std::string description;    // 选项描述
+    std::string value;          // 选项值
+    bool required;              // 选项后是否接收参数
+}
 ```
 参数解析，需传入`main(int argc, char* argv[])`中的`argc`和`argv`。
 ```cpp
