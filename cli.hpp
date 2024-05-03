@@ -170,7 +170,13 @@ public:
             } else {
                 *__ostream_ptr << __option_short_prefix << std::left << std::setw(max_short_name_size) << option.short_name << ", ";
             }
-            *__ostream_ptr << __option_prefix << std::left << std::setw(30) << option.name << option.description << '\n';
+            *__ostream_ptr << __option_prefix << std::left << std::setw(30);
+            if (option.required) {
+                *__ostream_ptr << option.name + " <arg>";
+            } else {
+                *__ostream_ptr << option.name + "      ";
+            }
+            *__ostream_ptr << option.description << '\n';
         }
     }
 
